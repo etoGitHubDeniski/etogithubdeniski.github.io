@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="page" lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aveji</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body class="page__body">
+    <header class="header">
+      <div class="header__inner container">
+        <img class="header__logo" src="images/logo.svg" alt="Aveji logo" />
+        <div class="header__mobile-navigation">
+          <a href="#form" class="header__link">Заказать проект</a>
+          <button class="header__toggle" type="button">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <rect width="24" height="1" y="6" />
+              <rect width="24" height="1" y="12" />
+              <rect width="14" height="1" x="10" y="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="header__navigation">
+          <nav class="navigation">
+            <ul class="navigation__list">
+              <li class="navigation__list-item">
+                <a href="#about" class="navigation__link">О нас</a>
+              </li>
+              <li class="navigation__list-item">
+                <a href="#projects" class="navigation__link">Проекты</a>
+              </li>
+              <li class="navigation__list-item">
+                <a class="navigation__link navigation__link--disabled"
+                  >Материалы</a
+                >
+              </li>
+              <li class="navigation__list-item">
+                <a href="#testimonials" class="navigation__link">Отзывы</a>
+              </li>
+            </ul>
+          </nav>
+          <span class="header__mobile-description">Контакты:</span>
+          <a href="tel:+79999999999" class="header__link">+7 999 999 99 99</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page__main">
+      <section class="hero">
+        <div class="hero__inner container">
+          <h1 class="hero__title title">
+            Эксклюзивная и нестандартная мебель для дома
+          </h1>
+          <p class="hero__subtitle">
+            Мы можем произвести любую мебель для вашего проекта и найти
+            производственное решение любой задумки.
+          </p>
+          <a class="hero__link" href="#form">ЗАКАЗАТЬ ПРОЕКТ</a>
+          <picture>
+            <source
+              srcset="images/hero-image-desktop.webp"
+              media="(min-width: 1448px)"
+            />
+            <img
+              class="hero__image"
+              src="images/hero-image-mobile.webp"
+              alt="Нестандартная мебель в комнате"
+            />
+          </picture>
+          <img
+            class="hero__image-2"
+            src="images/hero-image-desktop-2.webp"
+            alt="Диван"
+          />
+        </div>
+      </section>
+
+      <section class="about">
+        <div class="about__inner container">
+          <h2 id="about" class="about__title title">О компании</h2>
+          <div class="about__subtitle">
+            <p>
+              Мы — команда профессионалов, которые могут произвести любую мебель
+              для вашего проекта, а также найти производственное решение любой
+              задумки.
+            </p>
+            <p>
+              Наша основная цель — реализовывать самые смелые задумки, и делать
+              это качественно и аккуратно.
+            </p>
+            <p>
+              В качестве материалов мы используем натуральные — стекло, дерево,
+              бетон, камень, металл и эпоксидную смолу.
+            </p>
+          </div>
+          <ul class="about__info-list">
+            <li class="about__info-item">
+              <p class="about__info-title">1 год</p>
+              <p class="about__info-text">гарантии на всю продукцию</p>
+            </li>
+            <li class="about__info-item">
+              <p class="about__info-title">300+</p>
+              <p class="about__info-text">выполненных проектов</p>
+            </li>
+            <li class="about__info-item">
+              <p class="about__info-title">15 дней</p>
+              <p class="about__info-text">срок производства</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="steps">
+        <div class="steps__inner container">
+          <h2 id="steps" class="steps__title title">Как мы работаем</h2>
+          <p class="steps__subtitle">
+            Алгоритм работы с нами для удобства и понимания проекта
+          </p>
+          <ul class="steps__list">
+            <li class="steps__item">
+              <h3 class="steps__item-title title">Идея</h3>
+              <p class="steps__item-subtitle">
+                Клиент приходит к нам с идеей. Это может быть изображение/ эскиз
+                или другой референс. А мы думаем над тем, как это реализовать,
+                делаем технические чертежи и предлагаем решения по материалам.
+              </p>
+            </li>
+            <li class="steps__item">
+              <h3 class="steps__item-title title">Техническое задание</h3>
+              <p class="steps__item-subtitle">
+                Клиент приходит к нам с идеей. Это может быть изображение/ эскиз
+                или другой референс. А мы думаем над тем, как это реализовать,
+                делаем технические чертежи и предлагаем решения по материалам.
+              </p>
+            </li>
+            <li class="steps__item">
+              <h3 class="steps__item-title title">Коммерческое предложение</h3>
+              <p class="steps__item-subtitle">
+                Предпочтительно используем натуральные материалы. Но любую смету
+                можем оптимизировать, упростив материалы или конструктив. Сможем
+                подстроиться под бюджет клиента и согласуем коммерческое
+                предложение
+              </p>
+            </li>
+            <li class="steps__item">
+              <h3 class="steps__item-title title">
+                Подготовка рабочего проекта
+              </h3>
+              <p class="steps__item-subtitle">
+                Создадим рабочую документацию и чертежи. Это фундамент
+                качественного производства. На этом этапе утверждаем с клиентом
+                все габариты и материалы, чертежи и приступаем к производству.
+              </p>
+            </li>
+            <li class="steps__item">
+              <h3 class="steps__item-title title">Производство и монтаж</h3>
+              <p class="steps__item-subtitle">
+                Производство занимает от 15 рабочих дней, в зависимости
+                от сложности и объёма. Монтажом тоже занимаемся самостоятельно.
+                Ведь мы это сделаем быстро и аккуратно.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="projects">
+        <div class="container">
+          <h2 id="projects" class="projects__title title">Проекты</h2>
+        </div>
+        <div class="projects__inner container">
+          <ul class="projects__list">
+            <li class="projects__item">
+              <img
+                src="images/project-img-1.webp"
+                alt="Тумба под телевизор"
+                class="projects__image"
+                loading="lazy"
+              />
+            </li>
+            <li class="projects__item">
+              <img
+                src="images/project-img-2.webp"
+                alt="Кухня"
+                class="projects__image"
+                loading="lazy"
+              />
+            </li>
+            <li class="projects__item">
+              <img
+                src="images/project-img-3.webp"
+                alt="Гостиная"
+                class="projects__image"
+                loading="lazy"
+              />
+            </li>
+            <li class="projects__item">
+              <img
+                src="images/project-img-4.webp"
+                alt="Ванна"
+                class="projects__image"
+                loading="lazy"
+              />
+            </li>
+            <li class="projects__item">
+              <img
+                src="images/project-img-5.webp"
+                alt="Спальня"
+                class="projects__image"
+                loading="lazy"
+              />
+            </li>
+            <li class="projects__item">
+              <img
+                src="images/project-img-6.webp"
+                alt="Камод"
+                class="projects__image"
+                loading="lazy"
+              />
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="testimonials">
+        <div class="container">
+          <h2 id="testimonials" class="testimonials__title title">Отзывы</h2>
+          <ul class="testimonials__list">
+            <li class="testimonials__item">
+              <h3 class="testimonials__author title">Игорь Антонов</h3>
+              <p class="testimonials__text">
+                Обратилась к Aveji по рекомендации. Команда сразу поняла, какой
+                дизайн я хочу. Предоставили несколько вариантов и в течение
+                недели сделали наброски. Итог понравился, все на высшем уровне.
+              </p>
+            </li>
+            <li class="testimonials__item">
+              <h3 class="testimonials__author title">Ольга Иванова</h3>
+              <p class="testimonials__text">
+                После пары заказов у компании Aveji убедилась, что за мебелью
+                теперь только к ним. Абсолютно любые решения, в любых размерах
+                и форм-факторе, то что нужно!
+              </p>
+            </li>
+            <li class="testimonials__item">
+              <h3 class="testimonials__author title">Аркадий Макаров</h3>
+              <p class="testimonials__text">
+                Aveji — настоящие профессионалы своего дела. Быстро поняли мою
+                задумку, сделали дизайн, согласовали и изготовили мебель.
+                А потом еще и бесплатно все собрали на месте. Большое спасибо!
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="form">
+        <div class="form__inner container">
+          <img
+            class="form__image"
+            src="images/form-image.webp"
+            alt="Комната в темном стиле"
+            loading="lazy"
+          />
+          <div class="form__right">
+            <h2 id="form" class="form__title title">Хотите заказать проект?</h2>
+            <p class="form__subtitle">Оставьте заявку, и мы вам перезвоним</p>
+            <form class="form__form" action="#">
+              <label class="form__label">
+                <span>Имя</span>
+                <input type="text" placeholder=" " />
+              </label>
+              <label class="form__label">
+                <span>E-mail</span>
+                <input type="text" placeholder=" " />
+              </label>
+              <label class="form__label">
+                <span>Телефон</span>
+                <input type="text" placeholder=" " />
+              </label>
+              <button class="form__button button" type="submit">
+                Отправить заявку
+              </button>
+            </form>
+            <div class="form__apps">
+              <a href="#" target="_blank">
+                <img src="images/AppStore.svg" alt="Загрузить с App Store" />
+              </a>
+              <a href="#" target="_blank">
+                <img
+                  src="images/GooglePlay.svg"
+                  alt="Загрузить с Google Play"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer__inner container">
+        <div class="footer__socials">
+          <a href="#" class="footer__social-link" target="_blank">Вконтакте</a>
+          <a href="#" class="footer__social-link" target="_blank">Телеграм</a>
+        </div>
+        <div class="footer__policies">
+          <a href="#" class="footer__policy-link" target="_blank">
+            Политика конфеденциальности
+          </a>
+          <a href="#" class="footer__policy-link" target="_blank">
+            Оплата и доставка
+          </a>
+        </div>
+        <div class="footer__info">
+          <p class="footer__info-text">© 2023 Aveji</p>
+          <p class="footer__info-text">Все права защищены</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
