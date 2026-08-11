@@ -1,0 +1,135 @@
+/* Генератор еженедельных отчётов — стили интерфейса и листа отчёта */
+
+:root{
+  --navy:#0f3b63; --navy2:#155a8a; --accent:#1878c2; --ink:#1c2733; --muted:#5b6b7b;
+  --bg:#eef2f6; --line:#dde5ec;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);font-family:"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink)}
+#app{display:flex;height:100vh;overflow:hidden}
+
+/* ------- editor ------- */
+#editor{width:440px;min-width:440px;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column}
+#editor .ed-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}
+#editor .ed-head h1{font-size:15px;margin:0;flex:1;color:var(--navy)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 12px;font-size:12.5px;cursor:pointer;color:var(--ink)}
+.btn:hover{background:#f4f7fa}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:600}
+.btn.primary:hover{background:var(--navy2)}
+.btn.small{padding:4px 8px;font-size:11.5px;border-radius:6px}
+#edBody{overflow-y:auto;flex:1;padding:10px 14px 40px}
+details.sec{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:#fff}
+details.sec>summary{cursor:pointer;padding:10px 12px;font-weight:600;font-size:13px;color:var(--navy);list-style:none;display:flex;align-items:center;gap:8px}
+details.sec>summary::before{content:"▸";font-size:11px;transition:.15s;color:var(--muted)}
+details.sec[open]>summary::before{transform:rotate(90deg)}
+.sec-body{padding:2px 12px 12px}
+label.f{display:block;font-size:11.5px;color:var(--muted);margin:8px 0 3px}
+input[type=text],input[type=date],input[type=number],select{border:1px solid var(--line);border-radius:7px;padding:6px 8px;font-size:12.5px;width:100%;font-family:inherit;background:#fff}
+input[type=number]{text-align:right}
+input:focus,select:focus{outline:2px solid #b8d7ef;border-color:var(--accent)}
+table.edt{border-collapse:collapse;width:100%;font-size:11px}
+table.edt th{font-weight:600;color:var(--muted);padding:3px 2px;text-align:center;font-size:9.5px;line-height:1.15}
+table.edt td{padding:2px 1px}
+table.edt td input{padding:4px 3px;font-size:11.5px;border-radius:5px}
+table.edt td.nm input{font-size:11px}
+.rowdel{color:#c33;cursor:pointer;border:none;background:none;font-size:13px;padding:0 3px}
+.chk{display:flex;align-items:center;gap:7px;font-size:12.5px;padding:4px 0;cursor:pointer}
+.chk input{accent-color:var(--navy)}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.hint{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.45}
+.iorow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.flex{display:flex;gap:8px}
+.flex>*{flex:1}
+.ovr input{background:#fff7e8;border-color:#eecb8a}
+
+/* theme picker */
+.themes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.theme-card{border:2px solid var(--line);border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;display:flex;align-items:center;gap:8px}
+.theme-card.active{border-color:var(--accent);background:#f2f8fd}
+.sw{display:flex;gap:3px}
+.sw i{width:11px;height:11px;border-radius:3px;display:block}
+
+/* layout editor */
+.lay-row{display:flex;align-items:center;gap:5px;margin:5px 0;font-size:11.5px}
+.lay-row .bn{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lay-row input{width:44px;padding:4px 3px;font-size:11.5px}
+.lay-row span.lb{color:var(--muted);font-size:10px}
+#miniMap{border:1px solid var(--line);border-radius:8px;margin-top:8px;background:#fbfcfe}
+
+/* saved templates */
+.tpl{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dashed #edf1f5;font-size:12.5px}
+.tpl .nm{flex:1}
+
+/* ------- preview ------- */
+#previewWrap{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;align-items:center}
+#reportScale{transform-origin:top left}
+#toolbarTop{width:100%;max-width:1100px;display:flex;justify-content:flex-end;gap:8px;margin:0 0 12px}
+#printNote{font-size:11px;color:var(--muted);max-width:1100px;width:100%;margin-top:10px;text-align:right}
+
+/* ------- report canvas (themeable via --r-*) ------- */
+#report{width:1280px;height:756px;background:var(--r-page,#fff);box-shadow:0 8px 30px rgba(15,59,99,.18);border-radius:4px;
+  display:flex;flex-direction:column;padding:14px 20px 12px;gap:9px;position:relative;color:var(--r-ink,#1c2733);
+  font-family:var(--r-font,"Segoe UI",Roboto,Arial,sans-serif);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact}
+#report h2,#report h3{font-family:var(--r-font-head,inherit)}
+.r-head{display:flex;align-items:center;gap:16px;border-bottom:2px solid var(--r-rule,#0f3b63);padding-bottom:8px;min-height:54px}
+.r-head .lgbox{background:#fff;border-radius:8px;padding:3px 6px;display:flex;align-items:center}
+.r-head img.lg{height:38px;display:block}
+.r-title{flex:1}
+.r-title h2{margin:0;font-size:21px;color:var(--r-head,#0f3b63);font-weight:700;letter-spacing:.2px}
+.r-title .per{font-size:13px;color:var(--r-muted,#5b6b7b);margin-top:2px}
+.per b{color:var(--r-accent,#1878c2);font-weight:600}
+
+.r-rows{display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;overflow:hidden}
+.r-row{display:flex;gap:8px;min-width:0;min-height:0}
+.r-row.auto{flex:0 0 auto}
+.r-row>*{min-width:0}
+
+.kpis{display:flex;gap:10px;flex-wrap:wrap;align-content:stretch;height:100%}
+.kpi{flex:1 1 120px;background:var(--r-kpi,#f5f8fb);border:var(--r-card-bw,1px) solid var(--r-border,#dde5ec);
+  border-radius:var(--r-radius,10px);box-shadow:var(--r-card-sh,none);padding:6px 14px;
+  display:flex;flex-direction:column;justify-content:center}
+.kpi .kv{font-size:calc(22px * var(--dens,1));font-weight:700;color:var(--r-head,#0f3b63);line-height:1.1}
+.kpi .kv small{font-size:calc(12px * var(--dens,1));font-weight:600;margin-left:6px}
+.kpi .kl{font-size:calc(10.5px * var(--dens,1));color:var(--r-muted,#5b6b7b);margin-top:1px}
+.up{color:#d64545}.down{color:#22a565}
+
+.card{background:var(--r-card,#fff);border:var(--r-card-bw,1px) solid var(--r-border,#dde5ec);border-radius:var(--r-radius,10px);
+  box-shadow:var(--r-card-sh,none);
+  padding:calc(8px * var(--dens,1)) calc(10px * var(--dens,1));
+  display:flex;flex-direction:column;min-height:0;min-width:0;overflow:hidden}
+.card h3{margin:0 0 calc(5px * var(--dens,1));font-size:calc(12.5px * var(--dens,1));color:var(--r-head,#0f3b63);font-weight:700}
+.card .grow{flex:1;min-height:0;min-width:0}
+.tfit{transform-origin:top left}
+
+table.rt{border-collapse:collapse;width:100%;font-size:calc(11px * var(--dens,1))}
+table.rt th{background:var(--r-th-bg,#0f3b63);color:var(--r-th-fg,#fff);font-weight:600;
+  padding:calc(5px * var(--dens,1)) calc(6px * var(--dens,1));font-size:calc(9.6px * var(--dens,1));line-height:1.2;text-align:center}
+table.rt th:first-child{text-align:left;border-radius:6px 0 0 0}
+table.rt th:last-child{border-radius:0 6px 0 0}
+table.rt td{padding:calc(3.6px * var(--dens,1)) calc(6px * var(--dens,1));text-align:center;border-bottom:1px solid var(--r-border,#eaf0f5);color:var(--r-ink,#1c2733)}
+table.rt td:first-child{text-align:left;font-weight:500}
+table.rt tr:nth-child(even) td{background:var(--r-zebra,#f6f9fc)}
+table.rt td.tot{font-weight:700}
+table.rt tr.total td{background:var(--r-total,#e8f1f8);font-weight:700;border-top:2px solid var(--r-rule,#0f3b63);color:var(--r-head,#0f3b63)}
+
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:10.5px;color:var(--r-ink);margin-top:5px;justify-content:center}
+.legend .li{display:flex;align-items:center;gap:5px}
+
+.donut-wrap{display:flex;align-items:center;gap:6px;flex:1;min-height:0}
+.dlegend{font-size:11px;flex:1;min-width:0}
+.dlegend .row{display:flex;align-items:center;gap:7px;padding:2.6px 0;border-bottom:1px dashed var(--r-border,#edf1f5)}
+.dlegend .row:last-child{border-bottom:none}
+.dlegend .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dlegend .vl{font-weight:700;color:var(--r-head,#0f3b63)}
+.dlegend .pc{color:var(--r-muted,#5b6b7b);width:44px;text-align:right}
+
+@media print{
+  @page{size:1280px 756px;margin:0}
+  html,body{background:#fff}
+  #editor,#toolbarTop,#printNote{display:none !important}
+  #app{display:block;height:auto;overflow:visible}
+  #previewWrap{padding:0;overflow:visible;display:block}
+  #reportScale{transform:none !important;width:1280px !important;height:756px !important}
+  #report{box-shadow:none;border-radius:0}
+}

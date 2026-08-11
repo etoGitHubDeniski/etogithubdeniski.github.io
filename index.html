@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Генератор еженедельных отчётов</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="app">
+  <!-- =============== EDITOR =============== -->
+  <div id="editor">
+    <div class="ed-head">
+      <h1>Генератор отчётов <span style="color:var(--accent)">v5</span></h1>
+      <button class="btn primary" onclick="window.print()">Скачать PDF</button>
+    </div>
+    <div id="edBody">
+
+      <div style="padding:2px 2px 10px">
+        <label class="f" style="margin-top:0">Тип отчёта</label>
+        <select id="typeSel" onchange="switchType(this.value)"></select>
+        <div class="hint">Данные, раскладка и шаблоны хранятся отдельно для каждого типа отчёта.</div>
+      </div>
+
+      <details class="sec" open>
+        <summary>Шаблон и оформление</summary>
+        <div class="sec-body">
+          <label class="f">Тема оформления</label>
+          <div class="themes" id="edThemes"></div>
+
+          <label class="f" style="margin-top:12px">Плотность содержимого</label>
+          <select id="densSel" onchange="S.density=+this.value;save();renderReport()">
+            <option value="0">Авто (подгонять под лист)</option>
+            <option value="1">100%</option><option value="0.95">95%</option><option value="0.9">90%</option>
+            <option value="0.85">85%</option><option value="0.8">80%</option><option value="0.75">75%</option><option value="0.7">70%</option>
+          </select>
+          <div class="hint" id="densInfo"></div>
+
+          <label class="f" style="margin-top:12px">Раскладка блоков</label>
+          <div id="edLayout"></div>
+          <svg id="miniMap" width="100%" height="120" viewBox="0 0 240 126" preserveAspectRatio="none"></svg>
+          <div class="hint"><b>Стр.</b> — номер строки (блоки с одной строкой встают рядом), <b>Поз.</b> — порядок внутри строки, <b>Шир.</b> — ширина в % от строки. <b>Выс.</b> — вес высоты для строк с графиками: они делят между собой место, оставшееся после таблиц и показателей (0 = высота по содержимому). Обрезки нет: высота строк подстраивается под контент.</div>
+
+          <label class="f" style="margin-top:12px">Сохранённые шаблоны</label>
+          <div id="edTpls"></div>
+          <div class="iorow">
+            <input type="text" id="tplName" placeholder="Название шаблона" style="flex:1">
+            <button class="btn small" onclick="saveTpl()">Сохранить</button>
+          </div>
+          <div class="iorow">
+            <button class="btn small" onclick="exportTpl()">Экспорт шаблона</button>
+            <label class="btn small" style="display:inline-block">Импорт шаблона<input type="file" accept=".json" hidden onchange="importTpl(this)"></label>
+          </div>
+          <div class="hint">Шаблон хранит тему, раскладку, набор блоков и категорий — но не данные. Можно завести отдельные шаблоны под ИВН, ОСП и КРУ.</div>
+        </div>
+      </details>
+
+      <details class="sec">
+        <summary>Блоки отчёта</summary>
+        <div class="sec-body" id="edBlocks"></div>
+      </details>
+
+      <details class="sec" open>
+        <summary>Шапка и период</summary>
+        <div class="sec-body">
+          <label class="f">Заголовок отчёта</label>
+          <input type="text" id="inTitle">
+          <label class="f">Подзаголовок (например, «Самосвалы»)</label>
+          <input type="text" id="inSubtitle">
+          <label class="f">Подпись организации</label>
+          <input type="text" id="inOrg">
+          <div class="flex">
+            <div><label class="f">Период с</label><input type="date" id="inStart"></div>
+            <div><label class="f">Период по</label><input type="date" id="inEnd"></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="sec" open>
+        <summary>Общие данные (события по управлениям)</summary>
+        <div class="sec-body">
+          <div id="edTableWrap" style="overflow-x:auto"></div>
+          <button class="btn small" style="margin-top:8px" onclick="addRow()">+ Добавить управление</button>
+          <div class="hint">«Итого» считается автоматически. Ручная правка в колонке <b>Итог (правка)</b> подсвечивается и попадает в отчёт вместо автосуммы.</div>
+        </div>
+      </details>
+
+      <details class="sec">
+        <summary>Категории событий</summary>
+        <div class="sec-body" id="edCats"></div>
+      </details>
+
+      <details class="sec" id="secRequests">
+        <summary>Работа по заявкам</summary>
+        <div class="sec-body" id="edRequests"></div>
+      </details>
+
+      <details class="sec" id="secSummary">
+        <summary>Сводка по годам</summary>
+        <div class="sec-body" id="edSummary"></div>
+      </details>
+
+      <details class="sec">
+        <summary>Тренд по неделям</summary>
+        <div class="sec-body">
+          <div id="edTrend" style="max-height:260px;overflow-y:auto"></div>
+          <div class="iorow">
+            <button class="btn small" onclick="addTrend()">+ Добавить точку</button>
+            <button class="btn small" onclick="appendCurrentWeek()">Добавить текущую неделю автоматически</button>
+          </div>
+        </div>
+      </details>
+
+      <details class="sec">
+        <summary>Импорт / экспорт данных</summary>
+        <div class="sec-body">
+          <div class="iorow">
+            <button class="btn small" onclick="exportJSON()">Сохранить JSON</button>
+            <label class="btn small" style="display:inline-block">Загрузить JSON<input type="file" accept=".json" hidden onchange="importJSON(this)"></label>
+            <label class="btn small" style="display:inline-block">Импорт CSV / Excel<input type="file" accept=".csv,.xlsx,.xls" hidden onchange="importTable(this)"></label>
+            <button class="btn small" onclick="downloadCSVTemplate()">Шаблон CSV</button>
+          </div>
+          <div class="iorow">
+            <button class="btn small" style="color:#c33" onclick="resetDemo()">Сбросить к демо-данным</button>
+          </div>
+          <div class="hint">Excel (.xlsx) требует интернет при первом использовании; CSV работает всегда. Все изменения автосохраняются в браузере.</div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- =============== PREVIEW =============== -->
+  <div id="previewWrap">
+    <div id="toolbarTop">
+      <button class="btn primary" onclick="window.print()">Скачать PDF</button>
+    </div>
+    <div id="reportScale"><div id="report"></div></div>
+    <div id="printNote">PDF: в диалоге печати выберите «Сохранить как PDF», поля — «Нет», масштаб — 100%, фоновая графика — включена.</div>
+  </div>
+</div>
+
+<!-- Скрипты подключаются по порядку: справочники → состояние → графики → отрисовка → редактор → импорт/экспорт → запуск -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/state.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/render.js"></script>
+<script src="assets/js/editor.js"></script>
+<script src="assets/js/io.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
